@@ -1,0 +1,141 @@
+0x7Exxxxxx in the manual -> Replace with 0x20xxxxxx as the ARM physical address.
+
+/** Registers **/
+13 General purpose register: r0, r1, ..., r12.
+A register can store a number between 0 and 4,294,967,295 inclusive. 32 bits.
+
+sp -> Stack Pointer. Holds the address of the first item of the stack. Its value must be the same after the function has finished. 
+lr -> Link Register. Holds the address of the instruction after the one that called this function.
+Address to branch back to when a function is finished, but this does have to contain the same address after the function has finished.
+
+pc -> Special register which always contains the address of the next instruction to be run.
+
+
+
+/** Application Binary Interface (ABI) standard **/
+r0-r1: 
+-> Argument and result
+-> Not preserved
+-> Used for passing the first two arguments to functions, and returning the results of functions. If a function does not use them for a return value, they can take any value after a function.
+
+r2-r3:
+-> Argument
+-> Not preserved
+-> Used for passing the second two arguments to functions. There values after a function is called can be anything.
+
+r4-r12:
+-> General purpose
+-> Preserved
+-> Used for working values, and their value after a function is called must be the same as before.
+
+
+
+/** Bits **/
+lsl reg,#val
+-> Shifts the binary representation of the number in reg by val places to the left. "Logical Shift Left"
+
+Argument shift reg,lsl #val
+-> Shifts the binary representation of the number in reg left by val before using it in the operation before.
+
+lsl reg,amt
+-> Shifts the binary representation of the number in reg left by the number in amt.
+
+lsr dst,src,#val
+-> Shifts the binary representation of the number in src right by val, but stores the result in dst.
+
+and reg,#val
+-> Computes the Boolean and function of the number in reg with val.
+
+orr reg,#val
+-> Computes the Boolean or function of the number in reg with val.
+
+not reg,#val
+-> Computes the Boolean not function of the number in reg with val.
+
+
+
+/** Misc **/
+ldr reg,=val
+-> Puts the number val into the register reg. "LoaD Register"
+
+ldr reg,[address]
+-> Puts the number stored at address into the register reg. "LoaD Register"
+
+ldrd regLow,regHigh,[src,#val]
+-> Loads 8 bytes from the address given by the number in src plus val into regLow and regHigh.
+
+mov reg,#val
+-> Puts val into reg. Faster than ldr as it doesn't involve a memory interaction.
+
+mvn reg,#val
+-> Puts the logical not of val into reg.
+
+str reg,[dest,#val]
+-> Stores the number in reg at the address given by dest + val. "STore Register"
+str reg,[dst] = str reg,[dst,#0].
+
+strh reg,[dest]
+-> Stores the low half word number in reg at the address given by dest.
+
+push {reg1,reg2,...}
+-> Copies the registers in the list reg1,reg2,... onto the top of the stack. Only general purpose registers and lr can be pushed.
+
+pop {reg1,reg2,...}
+-> Copies the values from the top of the stack into the register list reg1,reg2,.... Only general purpose registers and pc can be popped.
+
+.align num
+-> Ensures the address of the next line is a multiple of 2num.
+
+.int val
+-> Outputs the number val.
+
+
+
+/** Tests **/
+ne
+-> Suffix if not equal
+
+ls
+-> Suffix if less or same
+
+hi
+-> Suffix if higher
+
+cmp reg,#val
+-> Compares the value in reg with the number val.
+
+teq reg,#val
+-> Checks if the number in reg is equal to val. Doesn't change the flag bits <= ,> and so on.
+
+tst reg,#val
+-> Computes and reg,#val and compares the result with 0.
+
+
+/** Divers **/
+b label$
+-> 'Branch' to the label
+
+label:
+-> Name the next line label
+
+.globl lbl2
+lbl2:
+-> Makes the label lbl2 accessible from other files, and make the symbol lbl2.
+
+ bl lbl
+-> Sets lr to the address of the next instruction and then branches to the label lbl.
+
+alias .req reg
+-> Sets alias to mean the register reg.
+
+.unreq alias
+-> Removes the alias alias.
+
+
+
+/** Operations **/
+sub reg,#val
+-> Subtracts the number val from the value in reg.
+
+add reg,#val
+-> Adds the number val to the contents of the register reg.
