@@ -125,6 +125,9 @@ lbl2:
  bl lbl
 -> Sets lr to the address of the next instruction and then branches to the label lbl.
 
+.equ constant_name cosntant
+-> Like a #define in C
+
 alias .req reg
 -> Sets alias to mean the register reg.
 
