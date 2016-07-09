@@ -1,8 +1,6 @@
 /******************************************************************************
-*	kernel.ld
-*	 by Alex Chadwick
+*	kernel.ld taken from Alex Chadwick
 *
-*	A linker script for generation of raspberry pi kernel images.
 ******************************************************************************/
 
 SECTIONS {
@@ -15,16 +13,12 @@ SECTIONS {
 		*(.init)
 	}
 	
-	/* 
-	* Next we put the rest of the code.
-	*/
+
 	.text : {
 		*(.text)
 	}
 	
-	/* 
-	* Next we put the data.
-	*/
+
 	.data : {
 		*(.data)
 	}
