@@ -11,9 +11,9 @@ SOURCE = src/
 TARGET = kernel.img
 LIST = $(DEBUG)kernel.list
 MAP = $(DEBUG)kernel.map
-LINKER = kernel.ld
+LINKER = linker.ld
 
-# The names of all object files that must be generated. Deduced from the 
+# The names of all object files that must be generated. Deduced from the
 # assembly code files in source.
 OBJECTS := $(patsubst $(SOURCE)%.s,$(BUILD)%.o,$(wildcard $(SOURCE)*.s))
 
@@ -26,7 +26,7 @@ $(LIST) : $(DEBUG)output.elf
 
 # Image file.
 $(TARGET) : $(DEBUG)output.elf
-	$(ARMGNU)-objcopy $(DEBUG)output.elf -O binary $(TARGET) 
+	$(ARMGNU)-objcopy $(DEBUG)output.elf -O binary $(TARGET)
 
 $(DEBUG)output.elf : $(DEBUG) $(OBJECTS) $(LINKER)
 	$(ARMGNU)-ld --no-undefined $(OBJECTS) -Map $(MAP) -o $(DEBUG)output.elf -T $(LINKER)
@@ -42,7 +42,7 @@ $(DEBUG):
 	mkdir $@
 
 # Rule to clean files.
-clean : 
+clean :
 	-rm -rf $(BUILD)
 	-rm -rf $(DEBUG)
 	-rm -f $(TARGET)
