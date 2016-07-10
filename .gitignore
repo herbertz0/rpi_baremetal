@@ -4,3 +4,4 @@
 *.list
 *.map
 *.tar.gz
+*.o
