@@ -32,7 +32,7 @@ gpio_init_statusled:
 	orr r1, r1, r2*/
 	mov r1, #1
 	lsl r1, #FSEL16
-	str r1, [r1]
+	str r1, [r0]
 	mov pc, lr
 
 // Outputs logical 1
