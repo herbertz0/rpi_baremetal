@@ -51,12 +51,9 @@ gpio_set_statusled:
 // Outputs logical 0
 gpio_clear_statusled:
 	ldr r0, =GPCLR0
-	/*
 	ldr r1, [r0]
 	mov r2, #1
 	lsl r2, #16
-	orr r1, r1, r2*/
-	mov r1, #1
-	lsl r1, #16
+	orr r1, r1, r2
 	str r1, [r0]
 	mov pc, lr
